@@ -29,13 +29,21 @@ router.post('/drones/create', (req, res, next) => {
 });
 
 router.get('/drones/:id/edit', (req, res, next) => {
-  // Iteration #4: Update the drone
-  // ... your code here
+  droneModel.findById(req.params.id)
+    .then((foundDrone)=>{
+      console.log(foundDrone);
+      res.render('drones/update-form.hbs', {
+        drone: foundDrone,
+      })
+    })
+    .catch((error)=>{console.log(error)});
+
 });
 
 router.post('/drones/:id/edit', (req, res, next) => {
-  // Iteration #4: Update the drone
-  // ... your code here
+  droneModel.findByIdAndUpdate(req.params.id, req.body)
+    .then(()=>res.redirect('/drones'))
+    .catch((error)=>{console.log(error);})
 });
 
 router.post('/drones/:id/delete', (req, res, next) => {
