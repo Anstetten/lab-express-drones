@@ -18,7 +18,11 @@ mongoose
         console.log("Succesfully connected to the server to seed");
 
         droneModel.create(drones)
-            .then((seededDocs) => { console.log(`We have created : ${seededDocs.length} drones`); })
+            .then((seededDocs) => { console.log(`We have created : ${seededDocs.length} drones`);
+            mongoose.disconnect()
+                .then(()=>{console.log("Connection Closed");})
+                .catch((error)=>{console.log(error)}); 
+        })
             .catch((error) => { console.log(error); })
     })
     .catch((error) => { console.log(error); });
